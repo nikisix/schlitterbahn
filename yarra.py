@@ -5,7 +5,7 @@
 
 import pandas as pd
 import numpy as np
-
+pd.options.display.width=140
 
 # In[2]:
 
@@ -60,11 +60,11 @@ osm = folium.Map((-37.6542, 145.15))
 lat1, lng1 = (-37.5642, 145.07)
 lat2, lng2 = (-37.6042, 145.10)
 n = 0 
-for rec in active[(lat1>active['Latitude Start of Pipe'])& (lat2<active['Latitude Start of Pipe'])&                   (lng1<active['Longitude Start of Pipe']) & (lng2>active['Longitude Start of Pipe'])].iterrows():
+for rec in active[(lat1>active['Latitude Start of Pipe'])& (lat2<active['Latitude Start of Pipe']) & (lng1<active['Longitude Start of Pipe']) & (lng2>active['Longitude Start of Pipe'])].iterrows():
     rec= rec[1]
     folium.PolyLine([[rec['Latitude Start of Pipe'],rec['Longitude Start of Pipe']],[rec['Lattitude End of Pipe'],rec['Longitude End of Pipe']]]).add_to(osm)
 
-for rec in inactive[(lat1>inactive['Latitude Start of Pipe'])& (lat2<inactive['Latitude Start of Pipe'])&                   (lng1<inactive['Longitude Start of Pipe']) & (lng2>inactive['Longitude Start of Pipe'])].iterrows():
+for rec in inactive[(lat1>inactive['Latitude Start of Pipe'])& (lat2<inactive['Latitude Start of Pipe']) & (lng1<inactive['Longitude Start of Pipe']) & (lng2>inactive['Longitude Start of Pipe'])].iterrows():
     rec= rec[1]
     folium.PolyLine([[rec['Latitude Start of Pipe'],rec['Longitude Start of Pipe']],[rec['Lattitude End of Pipe'],rec['Longitude End of Pipe']]],color='red').add_to(osm)
     
@@ -130,9 +130,9 @@ for i in range(1,2,1):
     end = start+datetime.timedelta(days=i*180)
     wrk = work_order[(work_order['Event Date']<end) & (work_order['Event Date']>start)]
     
-    act = wrk.merge(active,on='Asset ID').merge(water_zone, on='Distribution Zone ID',how='left')         .merge(soil[soil['Asset ID'].isnull()!=True],on='Asset ID',how='left').merge(grant_code, how='left',left_on="Grant Code\n(see Grant Code Data tab)" ,right_on="Grant Code")         
+    act = wrk.merge(active,on='Asset ID').merge(water_zone, on='Distribution Zone ID',how='left').merge(soil[soil['Asset ID'].isnull()!=True],on='Asset ID',how='left').merge(grant_code, how='left',left_on="Grant Code\n(see Grant Code Data tab)" ,right_on="Grant Code")         
         
-    inact = wrk.merge(inactive,on='Asset ID').merge(water_zone, on='Distribution Zone ID',how='left')         .merge(soil[soil['Asset ID'].isnull()!=True],on='Asset ID',how='left').merge(grant_code, how='left',left_on="Grant Code\n(see Grant Code Data tab)" ,right_on="Grant Code")         
+    inact = wrk.merge(inactive,on='Asset ID').merge(water_zone, on='Distribution Zone ID',how='left').merge(soil[soil['Asset ID'].isnull()!=True],on='Asset ID',how='left').merge(grant_code, how='left',left_on="Grant Code\n(see Grant Code Data tab)" ,right_on="Grant Code")         
         
     nofail = active[active['Asset ID'].isin(act['Asset ID'].values.tolist()+inact['Asset ID'].values.tolist())==False].merge(water_zone, on='Distribution Zone ID',how='left')         .merge(soil[soil['Asset ID'].isnull()!=True],on='Asset ID',how='left').merge(grant_code, how='left',left_on="Grant Code\n(see Grant Code Data tab)" ,right_on="Grant Code")         
         
@@ -218,7 +218,7 @@ import time
 obs_types = {'136':'rainfall',
             '122':'max_temp','123':'min_temp','193':'solar'}
 for key,val in obs_types.iteritems():
-    dat = pd.read_excel('/users/mhabiger/Desktop/Yarra Data/weatherlookup.xlsx',sheetname=val)
+    dat = pd.read_excel('~/data/yarra/weatherlookup.xlsx',sheetname=val)
     for item in dat[(dat.EndYear>2000) & (dat.StartYear<2000)].iterrows():
         site = """http://www.bom.gov.au"""
         pth = """http://www.bom.gov.au/jsp/ncc/cdio/weatherData/av?p_nccObsCode=%s&p_display_type=dailyDataFile&p_stn_num=%s&p_startYear=""" % (key,item[1].Site)
@@ -232,7 +232,7 @@ for key,val in obs_types.iteritems():
                 v = requests.get(site+dwnl,stream=True)
                 z = zipfile.ZipFile(StringIO.StringIO(v.content))
                 p = z.filelist[0]
-                ex_pth = '/users/mhabiger/Desktop/Yarra Data/'+val+'/'
+                ex_pth = '~/data/yarra/'+val+'/'
                 z.extract(p,path=ex_pth)
                 time.sleep(5)
         if pg.status_code!=200:
