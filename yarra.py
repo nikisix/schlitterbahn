@@ -9,17 +9,17 @@ import numpy as np
 
 # In[2]:
 
-work_order = pd.read_excel('~/data/yarra/YVW_Work_Order_Specification_Data_1995-2014-Challenge_9934007.xlsx')
+work_order = pd.read_excel('/Users/mhabiger/Desktop/Yarra Data/YVW_Work_Order_Specification_Data_1995-2014-Challenge_9934007.xlsx')
 
 
 # In[3]:
 
-water_zone = pd.read_excel("~/data/yarra/YVW_Water_Zone_Data-Challenge_9934007.xlsx")
-soil = pd.read_excel("~/data/yarra/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx")
-grant_code = pd.read_excel("~/data/yarra/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx",sheetname="Grant Code Data")
-soil_class = pd.read_excel("~/data/yarra/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx",sheetname="Soil Class Data")
-active = pd.read_excel("~/data/yarra/YVW_Pipe_Data-Active-Challenge_9934007-v2.xlsx")
-inactive = pd.read_excel("~/data/yarra/YVW_Pipe_Data-Abandoned-Challenge_9934007-v2.xlsx")
+water_zone = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Water_Zone_Data-Challenge_9934007.xlsx")
+soil = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx")
+grant_code = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx",sheetname="Grant Code Data")
+soil_class = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Pipe_Soil_Type_Data-Challenge_9934007.xlsx",sheetname="Soil Class Data")
+active = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Pipe_Data-Active-Challenge_9934007-v2.xlsx")
+inactive = pd.read_excel("/Users/mhabiger/Desktop/Yarra Data/YVW_Pipe_Data-Abandoned-Challenge_9934007-v2.xlsx")
 
 
 # In[4]:
