@@ -11,12 +11,12 @@ Out[32]: 14700
 '''
 
 active = pd.read_excel("~/data/yarra/YVW_Pipe_Data-Active-Challenge_9934007-v2.xlsx")
-# inactive = pd.read_excel("~/data/yarra/YVW_Pipe_Data-Abandoned-Challenge_9934007-v2.xlsx")
+#inactive = pd.read_excel("~/data/yarra/YVW_Pipe_Data-Abandoned-Challenge_9934007-v2.xlsx")
 
 i = 0
-# for _, rec in inactive.iterrows():
 for _, rec in active.iterrows():
-    print "insert into geo.active(distribution_id, asset_id, geom) values ({}, {}, st_geomfromtext('LINESTRING({} {}, {} {})'));"\
+#for _, rec in inactive.iterrows():
+    print "insert into yarra.active(distribution_id, asset_id, geom) values ({}, {}, st_geomfromtext('LINESTRING({} {}, {} {})'));"\
             .format(
                     rec['Distribution Zone ID'],
                     rec['Asset ID'],
