@@ -64,17 +64,59 @@ into yarra.inactive_buffered
 from yarra.inactive
 ;
 
---non-vs-buffered
+select asset_id, distribution_id, st_buffer(geom, .00002) as geom
+into yarra.active_buffered
+from yarra.active
+;
+
+--inactive
 with pipe1 as (
 select asset_id, geom
 from yarra.inactive_buffered
-limit 3
 )
 select p1.asset_id, array_agg(p2.asset_id) neighbors
---into yarra.active_neighbors
+into yarra.inactive_neighbors
 from pipe1 as p1
-join yarra.inactive_buffered as p2 on st_intersects(st_buffer(p1.geom, .00002), st_buffer(p2.geom, .00002))
+join yarra.inactive_buffered as p2 on st_intersects(p1.geom, p2.geom)
 where p1.asset_id <> p2.asset_id
 group by p1.asset_id
-limit 20
+;
+
+--active
+with pipe1 as (
+select asset_id, geom
+from yarra.active_buffered
+)
+select p1.asset_id, array_agg(p2.asset_id) neighbors
+into yarra.active_neighbors
+from pipe1 as p1
+join yarra.active_buffered as p2 on st_intersects(p1.geom, p2.geom)
+where p1.asset_id <> p2.asset_id
+group by p1.asset_id
+;
+
+--active-inactive
+with pipe1 as (
+select asset_id, geom
+from yarra.active_buffered
+)
+select p1.asset_id, array_agg(p2.asset_id) neighbors
+into yarra.active_inactive_neighbors
+from pipe1 as p1
+join yarra.inactive_buffered as p2 on st_intersects(p1.geom, p2.geom)
+where p1.asset_id <> p2.asset_id
+group by p1.asset_id
+;
+
+--inactive-active
+with pipe1 as (
+select asset_id, geom
+from yarra.inactive_buffered
+)
+select p1.asset_id, array_agg(p2.asset_id) neighbors
+into yarra.inactive_active_neighbors
+from pipe1 as p1
+join yarra.active_buffered as p2 on st_intersects(p1.geom, p2.geom)
+where p1.asset_id <> p2.asset_id
+group by p1.asset_id
 ;
