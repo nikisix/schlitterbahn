@@ -1,5 +1,6 @@
-*.ipynb
-insert*sql
-*.xlsx
 *.csv
+*.ipynb
+*.json
+*.xlsx
 *.zip
+insert*sql
