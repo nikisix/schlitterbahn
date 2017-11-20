@@ -1,0 +1,45 @@
+Yarra Water Pipe Analysis
+Authors: Matt Habiger, Pierro Ferrante, Nick Tomasino
+Submission Date: Nov 21, 2017
+
+
+_Overview_
+
+Our general approach can be divided into the following steps:
+    Load
+    Clean
+    Impute
+    Temporal Segmentation
+    Merge
+    Feature Engineering
+    Feature Importance
+    Model Training
+    Feature Elimination
+
+Special notes on the above steps may be found below.
+
+
+_Temporal Segmentation_
+
+The dataset was segmented into six-month intervals. Training data from several preceding intervals were used to predict the subsequent interval.
+
+
+_Feature Engineering_
+
+Several fields were added to the work order:
+    previous failure time
+    previous failure count
+    time since previous failure
+
+A geo-spatial network link estimation was performed to determine the neighbors of each pipe (a strong indicator of connectivity).  The features created from this analysis are relative to a given pipe, and include include:
+    number of neighboring pipes
+    materials of neighboring pipes
+    number of total failures of all neighboring pipes
+
+Time series centric approach was also used in feature engineering focused on identifying seasonality in the work order dataset and creating features from it; including:
+    TODO (Pierro)
+
+
+_Model Training_
+
+Many different models were trained from the prepared dataset and compared with respect to the outcome criteria. The best model was tested in future time-intervals to validate its robustness to the myriad of changing conditions that can effect pipe failure over time.
